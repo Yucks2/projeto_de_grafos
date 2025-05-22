@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
     int vertice_inicial = 1;
     bool mostrar_solucao = false;
 
-    for (int i = 1; i < argc; i++)
+    for(int i = 1; i < argc; i++)
     {
         string arg = argv[i];
         if(arg == "-h")
@@ -157,17 +157,23 @@ int main(int argc, char* argv[])
         
         if(mostrar_solucao)
         {
+            bool primeira = true;
             for(const auto &t: mstarestas)
             {
+                if(!primeira)
+                {
+                    *saida << " ";
+                }
                 int v = std::get<1>(t);
                 int pai = std::get<2>(t);
-                *saida << "(" << pai + 1 << ", " << v + 1 << ") ";
+                *saida << "(" << pai + 1 << "," << v + 1 << ")";
+                primeira = false;
             }
             *saida << "\n";
         }
         else
         {
-            *saida << soma << "\n";
+            *saida << soma;
         }
     }
     if(in != &cin)
