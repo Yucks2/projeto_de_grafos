@@ -1,17 +1,15 @@
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -O2
+CXXFLAGS = -O2 -Wall -Wextra -std=c++11
 
-TARGET = kruskal
 SRC = kruskal.cpp
-OBJ = $(SRC:.cpp=.o)
+TARGET = kruskal.bin
 
 all: $(TARGET)
 
-$(TARGET): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJ)
-
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+$(TARGET): $(SRC)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC)
 
 clean:
-	rm -f $(TARGET) $(OBJ)
+	rm -f $(TARGET)
+
+.PHONY: all clean

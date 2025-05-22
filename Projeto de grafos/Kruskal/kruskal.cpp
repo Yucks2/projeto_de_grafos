@@ -18,6 +18,7 @@ void mostrarhelp()
     cout << "-h           : mostra o help\n";
     cout << "-o <arquivo> : redireciona a saida para o ''arquivo''\n";
     cout << "-f <arquivo> : indica o ''arquivo'' que contem o grafo de entrada\n";
+    cout << "-s           : mostra a solução\n";
 }
 
 int find(vector<int>& pai, int i)
@@ -55,6 +56,7 @@ int main(int argc, char* argv[])
 {
     string inserir_arquivo = "";
     string sair_arquivo = "";
+    bool mostrar_solucao = false;
 
     for(int i = 1; i < argc; i++)
     {
@@ -75,6 +77,10 @@ int main(int argc, char* argv[])
                 cerr << "-f necessita de um nome de arquivo.\n";
                 return -1;
             }
+        }
+        else if(arg == "-s")
+        {
+            mostrar_solucao = true;
         }
         else if(arg == "-o")
         {
@@ -158,13 +164,26 @@ int main(int argc, char* argv[])
     }
     else
     {
-        *saida << "Peso total: " << peso_total << "\n";
-        *saida << "Arestas:\n";
-        for(auto &aresta : mst)
+        if(mostrar_solucao)
         {
-            *saida << (aresta.u + 1) << " - " << (aresta.v + 1) << " (Peso: " << aresta.w << ")\n";
+            bool primeira = true;
+            for(auto &aresta : mst)
+            {
+                if(!primeira)
+                {
+                    *saida << " ";
+                }
+                *saida << "(" << aresta.u + 1 << "," << aresta.v + 1 << ")";
+                primeira = false;
+            }
+        }
+        else
+        {
+            *saida << peso_total;
         }
     }
+
+
 
     if(arquivo_saida)
     {
